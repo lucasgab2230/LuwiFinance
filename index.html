@@ -1,0 +1,778 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover" />
+  <title>Luwi — Inteligência Financeira Pessoal</title>
+
+  <!-- PWA & Mobile Web App Manifest -->
+  <link rel="manifest" href="/manifest.json" />
+  <meta name="theme-color" content="#090d14" />
+  <meta name="mobile-web-app-capable" content="yes" />
+
+  <!-- iOS / iPhone PWA Configuration -->
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+  <meta name="apple-mobile-web-app-title" content="Luwi" />
+  <link rel="apple-touch-icon" href="/icons/icon.svg" />
+  <link rel="icon" type="image/svg+xml" href="/icons/icon.svg" />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="src/styles.css" />
+</head>
+<body>
+  <!-- ======================================================================
+       1. LANDING PAGE DE APRESENTAÇÃO E CONVERSÃO (PRIMEIRA TELA DO SITE)
+       ====================================================================== -->
+  <div class="landing-wrapper active-screen" id="landingScreen">
+    <!-- Navbar da Landing -->
+    <header class="landing-header">
+      <div class="landing-nav-container">
+        <div class="landing-brand">
+          <div class="brand-logo">
+            <span class="brand-spark">✦</span>
+          </div>
+          <div class="brand-text">
+            <span class="brand-title">Luwi</span>
+            <span class="brand-sub">IA Financeira</span>
+          </div>
+        </div>
+
+        <nav class="landing-nav-links">
+          <a href="#como-funciona">Como Funciona</a>
+          <a href="#agentes">Agentes de IA</a>
+          <a href="#diferenciais">Diferenciais</a>
+          <a href="#faq">Dúvidas</a>
+        </nav>
+
+        <div class="landing-nav-actions">
+          <button class="btn-landing-login" id="landingNavLoginBtn">Entrar</button>
+          <button class="btn-landing-cta" id="landingNavRegisterBtn">Criar Conta Grátis ✦</button>
+        </div>
+      </div>
+    </header>
+
+    <!-- HERO SECTION -->
+    <section class="landing-hero">
+      <div class="hero-content">
+        <div class="hero-badge">
+          <span class="badge-dot"></span>
+          <span>Inspirado no Pierre • Alimentado por IA • 100% Open Source</span>
+        </div>
+
+        <h1 class="hero-headline">
+          O fim das planilhas chatas.<br>
+          <span class="hero-gradient-text">Apenas converse com a Luwi.</span>
+        </h1>
+
+        <p class="hero-subtitle">
+          Esqueça horas categorizando tabelas e tentando decifrar gráficos confusos. 
+          Basta dizer <em>"Gastei 45 no almoço"</em> ou perguntar <em>"Quanto posso gastar hoje?"</em> e nossos agentes inteligentes cuidam do resto.
+        </p>
+
+        <div class="hero-cta-group">
+          <button class="btn-hero-primary" id="landingHeroCta">
+            <span>Começar Gratuitamente</span>
+            <span class="arrow-icon">→</span>
+          </button>
+          <button class="btn-hero-secondary" id="landingDemoCta">
+            <span class="play-icon">▶</span>
+            <span>Ver Demonstração ao Vivo</span>
+          </button>
+        </div>
+
+        <div class="hero-trust-bar">
+          <div class="trust-item"><span>🔒</span> 100% Privado e Seguro</div>
+          <div class="trust-item"><span>⚡</span> Gemini 3.5 Flash Lite</div>
+          <div class="trust-item"><span>📱</span> PWA para Celular (iOS & Android)</div>
+          <div class="trust-item"><span>🐘</span> Laravel + PostgreSQL</div>
+        </div>
+      </div>
+
+      <!-- Mockup Interativo Hero -->
+      <div class="hero-visual">
+        <div class="mockup-card glass-panel">
+          <div class="mockup-header">
+            <div class="mockup-dots">
+              <span></span><span></span><span></span>
+            </div>
+            <div class="mockup-title">Luwi Copiloto Financeiro</div>
+            <span class="badge-online">Online</span>
+          </div>
+
+          <div class="mockup-chat-preview">
+            <div class="preview-bubble user">
+              <p>Gastei R$ 42,50 no almoço no bistrô e assinei o Spotify por R$ 21,90</p>
+            </div>
+            <div class="preview-bubble ai">
+              <div class="ai-spark-icon">✦</div>
+              <div>
+                <p><strong>Lançamentos confirmados com sucesso!</strong></p>
+                <p>• 🍔 <strong>Almoço</strong>: R$ 42,50 adicionado em <em>Alimentação</em>.<br>
+                   • 🔄 <strong>Spotify</strong>: R$ 21,90 catalogado como <em>Assinatura Recorrente</em>.</p>
+                <small>Saldo restante no mês: R$ 3.840,20. Ritmo 100% equilibrado!</small>
+              </div>
+            </div>
+          </div>
+
+          <div class="mockup-floating-card alert">
+            <div class="floating-icon">🔄</div>
+            <div>
+              <strong>Detector de Assinaturas</strong>
+              <small>3 planos recorrentes identificados (R$ 99,70/mês)</small>
+            </div>
+          </div>
+
+          <div class="mockup-floating-card savings">
+            <div class="floating-icon">🎯</div>
+            <div>
+              <strong>Meta Viagem de Fim de Ano</strong>
+              <small>64% alcançada • No caminho certo</small>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- SEÇÃO COMPARATIVO: O JEITO ANTIGO VS O JEITO LUWI -->
+    <section class="landing-section" id="diferenciais">
+      <div class="section-badge-center">O CHOQUE DE REALIDADE</div>
+      <h2 class="section-title-center">Por que o método tradicional nunca funcionou para você?</h2>
+      <p class="section-sub-center">Aplicativos tradicionais e planilhas te transformam em um analista exausto. A Luwi transforma suas finanças em uma conversa leve.</p>
+
+      <div class="comparison-grid">
+        <div class="comparison-card old-way">
+          <div class="card-status-badge bad">✕ O JEITO ANTIGO</div>
+          <h3>Planilhas &amp; Apps Comuns</h3>
+          <ul class="comparison-list">
+            <li><span>✕</span> <strong>Abandono Rápido:</strong> Dezenas de colunas e categorias manuais que você cansa de preencher no 4º dia.</li>
+            <li><span>✕</span> <strong>Gráficos Indecifráveis:</strong> Telas cheias de pizzas e barras que não respondem à sua pergunta mais básica: <em>"posso sair hoje?"</em></li>
+            <li><span>✕</span> <strong>Assinaturas Fantasmas:</strong> Cobranças do cartão continuam debitando serviços esquecidos mês a mês.</li>
+            <li><span>✕</span> <strong>Sem Respostas Práticas:</strong> Nenhum conselho real, apenas dados estáticos e culpa no fim do mês.</li>
+          </ul>
+        </div>
+
+        <div class="comparison-card new-way highlight-border">
+          <div class="card-status-badge good">✦ COM A LUWI</div>
+          <h3>Inteligência Conversacional</h3>
+          <ul class="comparison-list">
+            <li><span>✓</span> <strong>Registro em Linguagem Natural:</strong> Você manda um texto ou frase simples e a movimentação é categorizada na hora.</li>
+            <li><span>✓</span> <strong>Agentes de IA Especializados:</strong> Copiloto que responde com contas exatas sobre o seu saldo real.</li>
+            <li><span>✓</span> <strong>Auditoria de Assinaturas:</strong> O Agente Guardião identifica serviços recorrentes e alerta sobre vazamentos.</li>
+            <li><span>✓</span> <strong>PWA com Modo Offline:</strong> Funciona direto no seu celular (iPhone ou Android) mesmo sem internet.</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- SEÇÃO DOS AGENTES DE IA (INSPIRADO NO PIERRE) -->
+    <section class="landing-section" id="agentes">
+      <div class="section-badge-center">ARQUITETURA INTELIGENTE</div>
+      <h2 class="section-title-center">Conheça os 3 Agentes de IA da Luwi</h2>
+      <p class="section-sub-center">Em vez de um chatbot genérico, você tem três especialistas trabalhando 24 horas pela sua saúde financeira.</p>
+
+      <div class="agents-presentation-grid">
+        <div class="agent-feature-card">
+          <div class="agent-badge-icon">✦</div>
+          <span class="agent-tag">COMPORTAMENTO &amp; DIA A DIA</span>
+          <h3>Luwi Copiloto</h3>
+          <p>Seu copiloto permanente. Interpreta o que você digita em português claro, categoriza gastos automaticamente e responde com empatia qualquer dúvida sobre seu orçamento.</p>
+          <div class="agent-example-box">
+            <em>"Luwi, quanto gastei em restaurantes esta semana?"</em>
+          </div>
+        </div>
+
+        <div class="agent-feature-card">
+          <div class="agent-badge-icon shield">🛡️</div>
+          <span class="agent-tag">SEGURANÇA &amp; VAZAMENTOS</span>
+          <h3>Agente Guardião</h3>
+          <p>Varre continuamente seu extrato em busca de despesas anômalas, concentração exagerada de dinheiro em uma só categoria e assinaturas esquecidas.</p>
+          <div class="agent-example-box">
+            <em>"Alerta: Você tem 4 assinaturas somando R$ 138/mês."</em>
+          </div>
+        </div>
+
+        <div class="agent-feature-card">
+          <div class="agent-badge-icon compass">🧭</div>
+          <span class="agent-tag">PROJEÇÃO &amp; OBJETIVOS</span>
+          <h3>Agente Estrategista</h3>
+          <p>Ajuda você a atingir metas reais de curto e longo prazo. Calcula quanto poupar a cada semana e faz projeções confiáveis para você fechar o mês no azul.</p>
+          <div class="agent-example-box">
+            <em>"Economizando R$ 80 nesta semana você bate a meta de viagem."</em>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- SEÇÃO COMO FUNCIONA (3 PASSOS RÁPIDOS) -->
+    <section class="landing-section" id="como-funciona">
+      <div class="section-badge-center">SIMPLICIDADE RADICAL</div>
+      <h2 class="section-title-center">Comece em menos de 1 minuto</h2>
+      <p class="section-sub-center">Sem burocracias, sem integrações bancárias arriscadas, sem taxas ocultas.</p>
+
+      <div class="steps-grid">
+        <div class="step-card">
+          <div class="step-number">01</div>
+          <h4>Crie sua conta ou use local</h4>
+          <p>Autentique-se pelo back-end Laravel com PostgreSQL ou comece instantaneamente no modo visitante direto no navegador.</p>
+        </div>
+        <div class="step-card">
+          <div class="step-number">02</div>
+          <h4>Converse naturalmente</h4>
+          <p>Diga seus gastos e ganhos como quem manda uma mensagem no WhatsApp. A IA cuida de classificar e calcular o saldo.</p>
+        </div>
+        <div class="step-card">
+          <div class="step-number">03</div>
+          <h4>Instale no celular (PWA)</h4>
+          <p>Adicione à tela de início do seu iPhone ou Android e consulte seu extrato e saldo mesmo sem conexão à internet.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- SEÇÃO FAQ (QUEBRANDO OBJEÇÕES) -->
+    <section class="landing-section" id="faq">
+      <div class="section-badge-center">PERGUNTAS FREQUENTES</div>
+      <h2 class="section-title-center">Tire suas dúvidas antes de começar</h2>
+
+      <div class="faq-accordion">
+        <details class="faq-item" open>
+          <summary><strong>O aplicativo é realmente gratuito e Open Source?</strong></summary>
+          <p>Sim! O projeto é 100% de código aberto sob a licença MIT. Utilizamos a API de alta velocidade do Google Gemini 3.5 Flash Lite para manter os custos de computação em zero e o back-end construído com Laravel e PostgreSQL pode ser executado onde você preferir.</p>
+        </details>
+
+        <details class="faq-item">
+          <summary><strong>Eu preciso colocar minhas senhas de banco ou cartão?</strong></summary>
+          <p><strong>Não, de maneira alguma.</strong> A Luwi nunca pede senhas bancárias, tokens de autenticação de bancos ou números de cartão de crédito. Você mantém o controle total e sua privacidade é preservada.</p>
+        </details>
+
+        <details class="faq-item">
+          <summary><strong>Como funciona no meu celular (iPhone ou Android)?</strong></summary>
+          <p>A Luwi é um PWA (Progressive Web App). Ao abrir no navegador do celular, você pode tocar em "Instalar" ou em "Adicionar à Tela de Início" e ela se comporta exatamente como um aplicativo nativo da App Store ou Google Play, com tela cheia e barra de navegação no rodapé.</p>
+        </details>
+
+        <details class="faq-item">
+          <summary><strong>Funciona mesmo se eu estiver sem internet?</strong></summary>
+          <p>Sim! Graças ao Service Worker e ao armazenamento local seguro, todos os seus dados ficam disponíveis no seu aparelho mesmo no modo avião.</p>
+        </details>
+      </div>
+    </section>
+
+    <!-- BANNER FINAL DE CONVERSÃO (CALL TO ACTION) -->
+    <section class="landing-cta-banner">
+      <div class="cta-banner-card">
+        <span class="cta-sparkle">✦</span>
+        <h2>Pronto para transformar sua relação com o dinheiro?</h2>
+        <p>Junte-se a quem já abandonou as planilhas chatas e experimente a clareza da IA financeira da Luwi hoje mesmo.</p>
+        <button class="btn-hero-primary large" id="landingFooterCta">
+          <span>Criar Minha Conta e Entrar</span>
+          <span class="arrow-icon">→</span>
+        </button>
+        <small class="cta-subnote">100% Gratuito • Sem cartão de crédito • Acesso imediato</small>
+      </div>
+    </section>
+
+    <!-- FOOTER DA LANDING -->
+    <footer class="landing-footer">
+      <div class="footer-container">
+        <div class="footer-left">
+          <div class="brand-area" style="margin-bottom:8px;">
+            <div class="brand-logo" style="width:28px;height:28px;">
+              <span class="brand-spark" style="font-size:14px;">✦</span>
+            </div>
+            <span class="brand-title" style="font-size:16px;">LuwiFinance</span>
+          </div>
+          <p style="color:var(--text-muted);font-size:12px;">Inteligência financeira pessoal, conversacional e aberta.</p>
+        </div>
+        <div class="footer-right">
+          <span style="color:var(--text-muted);font-size:12px;">Licença MIT • 100% Open Source • 2026</span>
+        </div>
+      </div>
+    </footer>
+  </div>
+
+  <!-- ======================================================================
+       2. APLICAÇÃO FINANCEIRA (DASHBOARD, CHAT, EXTRATO E METAS)
+       ====================================================================== -->
+  <div class="app-screen-wrapper" id="appScreen" style="display: none;">
+  <div class="app-container">
+    <!-- BARRA LATERAL NAVEGAÇÃO -->
+    <aside class="sidebar">
+      <div class="brand-area">
+        <div class="brand-logo">
+          <span class="brand-spark">✦</span>
+        </div>
+        <div class="brand-text">
+          <span class="brand-title">Luwi</span>
+          <span class="brand-sub">IA Financeira</span>
+        </div>
+      </div>
+
+      <!-- Botão Voltar para a Apresentação -->
+      <button class="btn-back-landing" id="btnBackToLanding" title="Voltar para a página de apresentação">
+        <span>←</span> Voltar à Apresentação
+      </button>
+
+      <nav class="nav-menu">
+        <p class="menu-label">PRINCIPAL</p>
+        <button class="nav-btn active" data-view="dashboard">
+          <span class="icon">◒</span>
+          <span class="label">Visão Geral</span>
+        </button>
+        <button class="nav-btn" data-view="chat">
+          <span class="icon">💬</span>
+          <span class="label">Conversar com Luwi</span>
+          <span class="badge-ai">IA</span>
+        </button>
+        <button class="nav-btn" data-view="transactions">
+          <span class="icon">↕</span>
+          <span class="label">Extrato</span>
+          <span class="badge-count" id="navTxCount">0</span>
+        </button>
+        <button class="nav-btn" data-view="subscriptions">
+          <span class="icon">🔄</span>
+          <span class="label">Assinaturas</span>
+        </button>
+        <button class="nav-btn" data-view="goals">
+          <span class="icon">🎯</span>
+          <span class="label">Metas</span>
+        </button>
+      </nav>
+
+      <div class="sidebar-footer">
+        <div class="user-profile-badge" id="userProfileBadge">
+          <div class="user-avatar" id="userAvatar">?</div>
+          <div class="user-details">
+            <strong id="userName">Visitante</strong>
+            <small id="userEmail">Modo Local</small>
+          </div>
+          <button class="btn-auth-action" id="btnAuthTrigger" title="Login / Cadastro">
+            🔑
+          </button>
+        </div>
+
+        <div class="ai-agent-badge">
+          <div class="pulse-indicator"></div>
+          <div>
+            <strong>Gemini 3.5 Flash Lite</strong>
+            <small>Copiloto Ativo • Online</small>
+          </div>
+        </div>
+
+        <div class="backend-status-pill" id="backendStatusPill" title="Status do serviço Laravel + PostgreSQL">
+          <span class="status-dot warning"></span>
+          <span id="backendStatusText">Laravel Auth: Conectando...</span>
+        </div>
+      </div>
+    </aside>
+
+    <!-- ÁREA PRINCIPAL -->
+    <main class="main-content">
+      <!-- BANNER DE INSTALAÇÃO DO PWA (DISCRETO E EXCLUSIVO PARA CELULARES) -->
+      <div class="mobile-install-banner" id="mobileInstallBanner">
+        <div class="banner-icon">✦</div>
+        <div class="banner-text">
+          <strong>Instalar Luwi no Celular</strong>
+          <small id="bannerInstallHint">Acesse offline como um aplicativo nativo</small>
+        </div>
+        <div class="banner-actions">
+          <button class="btn-install-pwa" id="btnInstallPwa">Instalar</button>
+          <button class="btn-dismiss-banner" id="btnDismissBanner" aria-label="Fechar">✕</button>
+        </div>
+      </div>
+
+      <!-- CABEÇALHO SUPERIOR -->
+      <header class="topbar">
+        <div>
+          <span class="eyebrow" id="currentDateLabel">Segunda-feira</span>
+          <h1 id="viewTitle">Seu dinheiro em perspectiva</h1>
+        </div>
+        <div class="top-actions">
+          <button class="btn-quick-chat" id="openChatQuick">
+            <span>✦</span> Falar com a Luwi
+          </button>
+          <button class="btn-primary" id="openAddModal">
+            + Adicionar
+          </button>
+        </div>
+      </header>
+
+      <!-- BARRA DE ENTRADA RÁPIDA DE IA (ESTILO PIERRE) -->
+      <div class="natural-input-bar">
+        <span class="magic-icon">✦</span>
+        <input 
+          id="quickNaturalInput" 
+          type="text" 
+          placeholder="Diga à Luwi: 'Gastei 45 no almoço' ou 'Quanto posso gastar hoje?'..." 
+          autocomplete="off"
+        />
+        <button id="btnSendNatural" title="Enviar para a IA">
+          <span>Enviar</span> →
+        </button>
+      </div>
+
+      <!-- VIEW 1: DASHBOARD / VISÃO GERAL -->
+      <section id="dashboardView" class="view active-view">
+        <!-- CARDS DE SALDO E INDICADORES -->
+        <div class="summary-grid">
+          <div class="metric-card balance-highlight">
+            <div class="card-header">
+              <span>Saldo Disponível</span>
+              <button class="btn-toggle-eye" id="toggleBalanceVisibility" title="Ocultar valores">👁</button>
+            </div>
+            <div class="balance-value" id="totalBalanceDisplay">R$ 0,00</div>
+            <div class="balance-sub">
+              <span class="metric-pill positive" id="balanceMonthChange">↑ Equilibrado</span>
+              <span>Visão consolidada</span>
+            </div>
+          </div>
+
+          <div class="metric-card">
+            <div class="card-header">
+              <span>Entradas do Mês</span>
+              <span class="badge-icon income">↓</span>
+            </div>
+            <div class="metric-value income-color" id="totalIncomeDisplay">R$ 0,00</div>
+            <small class="metric-foot" id="incomeFootnote">Receitas registradas</small>
+          </div>
+
+          <div class="metric-card">
+            <div class="card-header">
+              <span>Saídas do Mês</span>
+              <span class="badge-icon expense">↑</span>
+            </div>
+            <div class="metric-value expense-color" id="totalExpenseDisplay">R$ 0,00</div>
+            <small class="metric-foot" id="expenseFootnote">Total despesas</small>
+          </div>
+        </div>
+
+        <!-- FEED DE ALERTAS E INSIGHTS INTELIGENTES (ASSINATURAS & ANOMALIAS) -->
+        <div class="feed-section">
+          <div class="section-title">
+            <h2>Alertas da Luwi</h2>
+            <small>Detecção proativa de cobranças e tendências</small>
+          </div>
+          <div class="alerts-deck" id="alertsDeck">
+            <!-- Injetado dinamicamente via JS -->
+          </div>
+        </div>
+
+        <!-- GRADE DE CONTEÚDO: ÚLTIMAS TRANSAÇÕES E CATEGORIAS -->
+        <div class="dashboard-split">
+          <div class="panel">
+            <div class="panel-header">
+              <h3>Movimentações Recentes</h3>
+              <button class="btn-link" data-view="transactions">Ver extrato →</button>
+            </div>
+            <div class="transactions-list" id="dashboardRecentList">
+              <!-- Injetado dinamicamente via JS -->
+            </div>
+          </div>
+
+          <div class="panel">
+            <div class="panel-header">
+              <h3>Para onde vai o dinheiro</h3>
+              <small id="categorySummaryCount">Top categorias</small>
+            </div>
+            <div class="categories-list" id="categoriesBreakdown">
+              <!-- Injetado dinamicamente via JS -->
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- VIEW 2: COPILOTO CONVERSACIONAL (CHAT) -->
+      <section id="chatView" class="view">
+        <div class="chat-container">
+          <!-- SELETOR DE MODO DE AGENTE -->
+          <div class="agents-selector">
+            <button class="agent-tab active" data-agent="copilot">
+              <span class="agent-icon">✦</span>
+              <div>
+                <strong>Luwi Copiloto</strong>
+                <small>Dúvidas e orientações do dia a dia</small>
+              </div>
+            </button>
+            <button class="agent-tab" data-agent="guardian">
+              <span class="agent-icon">🛡️</span>
+              <div>
+                <strong>Agente Guardião</strong>
+                <small>Auditoria de assinaturas e vazamentos</small>
+              </div>
+            </button>
+            <button class="agent-tab" data-agent="strategist">
+              <span class="agent-icon">🧭</span>
+              <div>
+                <strong>Agente Estrategista</strong>
+                <small>Metas, limites e projeção para o mês</small>
+              </div>
+            </button>
+          </div>
+
+          <!-- MENSAGENS -->
+          <div class="chat-thread" id="chatThread">
+            <div class="chat-msg ai">
+              <div class="msg-avatar">✦</div>
+              <div class="msg-bubble">
+                <p>Olá! Eu sou a <strong>Luwi</strong>, sua copiloto financeira pessoal.</p>
+                <p>Você não precisa preencher planilhas chatas: pode simplesmente conversar comigo, registrar despesas em texto corrida (ex: <em>"Gastei 42 no mercado"</em>) ou me perguntar sobre seus gastos, saldo e assinaturas.</p>
+                <small class="msg-time">Agora</small>
+              </div>
+            </div>
+          </div>
+
+          <!-- SUGESTÕES RÁPIDAS -->
+          <div class="prompt-chips">
+            <button class="chip" data-prompt="Como está a saúde do meu mês?">📊 Como está meu mês?</button>
+            <button class="chip" data-prompt="Quais são as minhas assinaturas ativas?">🔄 Minhas assinaturas</button>
+            <button class="chip" data-prompt="Onde posso cortar gastos essa semana?">✂️ Onde economizar?</button>
+            <button class="chip" data-prompt="Quanto gastei com alimentação até agora?">🍔 Gastos com comida</button>
+          </div>
+
+          <!-- FORMULÁRIO DE CHAT -->
+          <form class="chat-composer" id="chatComposer">
+            <input 
+              id="chatComposerInput" 
+              type="text" 
+              placeholder="Pergunte algo ou diga uma movimentação..." 
+              autocomplete="off"
+            />
+            <button type="submit" id="btnSubmitChat" class="btn-send-chat">
+              <span>Enviar</span> ↑
+            </button>
+          </form>
+        </div>
+      </section>
+
+      <!-- VIEW 3: EXTRATO COMPLETO -->
+      <section id="transactionsView" class="view">
+        <div class="panel">
+          <div class="panel-header flex-wrap">
+            <div>
+              <h3>Extrato Consolidado</h3>
+              <small>Todas as suas entradas e saídas registradas</small>
+            </div>
+            <div class="filter-pills">
+              <button class="filter-btn active" data-filter="all">Todas</button>
+              <button class="filter-btn" data-filter="expense">Saídas</button>
+              <button class="filter-btn" data-filter="income">Entradas</button>
+              <button class="filter-btn" data-filter="subscription">Assinaturas</button>
+            </div>
+          </div>
+          <div class="transactions-full-list" id="allTransactionsList">
+            <!-- Injetado dinamicamente -->
+          </div>
+        </div>
+      </section>
+
+      <!-- VIEW 4: ASSINATURAS E RECORRENTES -->
+      <section id="subscriptionsView" class="view">
+        <div class="panel">
+          <div class="panel-header">
+            <div>
+              <h3>Assinaturas & Cobranças Recorrentes</h3>
+              <small>Serviços que cobram periodicamente (streaming, planos, mensalidades)</small>
+            </div>
+            <div class="sub-total-pill">
+              Total recorrente: <strong id="subsTotalDisplay">R$ 0,00/mês</strong>
+            </div>
+          </div>
+          <div class="subs-grid" id="subscriptionsGrid">
+            <!-- Injetado dinamicamente -->
+          </div>
+        </div>
+      </section>
+
+      <!-- VIEW 5: METAS -->
+      <section id="goalsView" class="view">
+        <div class="panel">
+          <div class="panel-header">
+            <div>
+              <h3>Metas & Reservas</h3>
+              <small>Objetivos financeiros acompanhados pela Luwi</small>
+            </div>
+            <button class="btn-primary" id="btnNewGoalModal">+ Nova Meta</button>
+          </div>
+          <div class="goals-grid" id="goalsGrid">
+            <!-- Injetado dinamicamente -->
+          </div>
+        </div>
+      </section>
+    </main>
+  </div>
+
+  <!-- NAVEGAÇÃO INFERIOR PARA CELULARES (PADRÃO APP NATIVO IOS & ANDROID) -->
+  <nav class="mobile-bottom-nav" id="mobileBottomNav">
+    <button class="bottom-nav-item active" data-view="dashboard">
+      <span class="nav-icon">◒</span>
+      <span class="nav-lbl">Início</span>
+    </button>
+    <button class="bottom-nav-item" data-view="transactions">
+      <span class="nav-icon">↕</span>
+      <span class="nav-lbl">Extrato</span>
+    </button>
+    <button class="bottom-nav-item highlight-ai" data-view="chat">
+      <span class="nav-icon">✦</span>
+      <span class="nav-lbl">Luwi IA</span>
+    </button>
+    <button class="bottom-nav-item" data-view="subscriptions">
+      <span class="nav-icon">🔄</span>
+      <span class="nav-lbl">Planos</span>
+    </button>
+    <button class="bottom-nav-item" data-view="goals">
+      <span class="nav-icon">🎯</span>
+      <span class="nav-lbl">Metas</span>
+    </button>
+  </nav>
+  </div> <!-- Fim de #appScreen -->
+
+  <!-- MODAL ADICIONAR TRANSAÇÃO MANUAL -->
+  <div class="modal-backdrop" id="txModal">
+    <div class="modal-box">
+      <button class="modal-close" id="closeTxModal">×</button>
+      <div class="modal-head">
+        <span class="eyebrow">NOVO LANÇAMENTO</span>
+        <h2>Registrar Movimentação</h2>
+      </div>
+      <form id="txForm">
+        <div class="form-group">
+          <label for="txDesc">Descrição</label>
+          <input id="txDesc" name="description" placeholder="Ex: Supermercado, Aluguel, Salário" required />
+        </div>
+        <div class="form-row">
+          <div class="form-group">
+            <label for="txAmount">Valor (R$)</label>
+            <input id="txAmount" name="amount" type="number" step="0.01" min="0.01" placeholder="0,00" required />
+          </div>
+          <div class="form-group">
+            <label for="txType">Tipo</label>
+            <select id="txType" name="type">
+              <option value="expense">Despesa</option>
+              <option value="income">Receita</option>
+            </select>
+          </div>
+        </div>
+        <div class="form-row">
+          <div class="form-group">
+            <label for="txCategory">Categoria</label>
+            <select id="txCategory" name="category">
+              <option value="Alimentação">Alimentação</option>
+              <option value="Moradia">Moradia</option>
+              <option value="Transporte">Transporte</option>
+              <option value="Lazer">Lazer</option>
+              <option value="Saúde">Saúde</option>
+              <option value="Assinaturas">Assinaturas</option>
+              <option value="Educação">Educação</option>
+              <option value="Renda">Renda</option>
+              <option value="Outros">Outros</option>
+            </select>
+          </div>
+          <div class="form-group checkbox-group">
+            <label class="checkbox-label">
+              <input type="checkbox" id="txRecurring" name="isRecurring" />
+              <span>É assinatura / recorrente?</span>
+            </label>
+          </div>
+        </div>
+        <button type="submit" class="btn-primary full-width">Salvar Lançamento</button>
+      </form>
+    </div>
+  </div>
+
+  <!-- MODAL ADICIONAR META -->
+  <div class="modal-backdrop" id="goalModal">
+    <div class="modal-box">
+      <button class="modal-close" id="closeGoalModal">×</button>
+      <div class="modal-head">
+        <span class="eyebrow">NOVA META</span>
+        <h2>Planejar Objetivo</h2>
+      </div>
+      <form id="goalForm">
+        <div class="form-group">
+          <label for="goalTitle">Nome do Objetivo</label>
+          <input id="goalTitle" name="title" placeholder="Ex: Reserva de Emergência, Viagem" required />
+        </div>
+        <div class="form-row">
+          <div class="form-group">
+            <label for="goalTarget">Valor Alvo (R$)</label>
+            <input id="goalTarget" name="target" type="number" step="0.01" min="1" placeholder="5000,00" required />
+          </div>
+          <div class="form-group">
+            <label for="goalCurrent">Já Guardado (R$)</label>
+            <input id="goalCurrent" name="current" type="number" step="0.01" min="0" placeholder="1000,00" required />
+          </div>
+        </div>
+        <button type="submit" class="btn-primary full-width">Criar Meta</button>
+      </form>
+    </div>
+  </div>
+
+  <!-- MODAL AUTENTICAÇÃO (LARAVEL + POSTGRESQL) -->
+  <div class="modal-backdrop" id="authModal">
+    <div class="modal-box">
+      <button class="modal-close" id="closeAuthModal">×</button>
+      <div class="modal-head">
+        <span class="eyebrow">SERVIÇO DE AUTENTICAÇÃO</span>
+        <h2>Acesse sua conta Luwi</h2>
+        <small style="color:var(--text-muted); display:block; margin-top:4px;">
+          Integrado com Laravel 11 &amp; PostgreSQL (100% Open-Source)
+        </small>
+      </div>
+
+      <!-- Abas Login / Cadastro -->
+      <div class="auth-tabs">
+        <button class="auth-tab-btn active" id="tabLoginBtn">Entrar</button>
+        <button class="auth-tab-btn" id="tabRegisterBtn">Criar Conta</button>
+      </div>
+
+      <!-- Formulário de Login -->
+      <form id="loginForm" class="auth-form-panel active">
+        <div class="form-group">
+          <label for="loginEmail">E-mail</label>
+          <input id="loginEmail" type="email" placeholder="seu@email.com" required autocomplete="username" />
+        </div>
+        <div class="form-group">
+          <label for="loginPassword">Senha</label>
+          <input id="loginPassword" type="password" placeholder="Sua senha secreta" required autocomplete="current-password" />
+        </div>
+        <button type="submit" class="btn-primary full-width" id="btnLoginSubmit">
+          Entrar na Conta
+        </button>
+      </form>
+
+      <!-- Formulário de Registro -->
+      <form id="registerForm" class="auth-form-panel">
+        <div class="form-group">
+          <label for="regName">Seu Nome</label>
+          <input id="regName" type="text" placeholder="Ex: Lucas Martins" required autocomplete="name" />
+        </div>
+        <div class="form-group">
+          <label for="regEmail">E-mail</label>
+          <input id="regEmail" type="email" placeholder="seu@email.com" required autocomplete="email" />
+        </div>
+        <div class="form-group">
+          <label for="regPassword">Senha (mínimo 8 caracteres)</label>
+          <input id="regPassword" type="password" minlength="8" placeholder="Crie uma senha forte" required autocomplete="new-password" />
+        </div>
+        <button type="submit" class="btn-primary full-width" id="btnRegisterSubmit">
+          Cadastrar no PostgreSQL
+        </button>
+      </form>
+
+      <button type="button" class="btn-guest-access" id="btnGuestAccess">
+        Ou acesse em Modo Visitante (Sem Cadastro) →
+      </button>
+
+      <div class="auth-footer-tip" id="authBackendTip">
+        <small>💡 O serviço Laravel roda em <code>http://localhost:8000</code>. Se estiver offline, você pode testar em modo local.</small>
+      </div>
+    </div>
+  </div>
+
+  <!-- TOAST NOTIFICATION -->
+  <div class="toast-container" id="toastContainer"></div>
+
+  <script src="src/app.js"></script>
+</body>
+</html>

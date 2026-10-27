@@ -1,0 +1,72 @@
+# ==============================================================================
+# LuwiFinance — Orquestração Completa Docker Compose
+# ==============================================================================
+services:
+  # 1. Front-end & Copiloto IA (Node.js + PWA + Gemini 3.5 Flash Lite)
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: luwi_frontend
+    restart: unless-stopped
+    ports:
+      - "3000:3000"
+    environment:
+      - NODE_ENV=production
+      - PORT=3000
+      - GEMINI_API_KEY=${GEMINI_API_KEY}
+      - GEMINI_MODEL=${GEMINI_MODEL:-gemini-3.5-flash-lite}
+      - ALLOWED_ORIGIN=http://localhost:3000
+    depends_on:
+      - auth-api
+    networks:
+      - luwi_network
+
+  # 2. Back-end de Autenticação (Laravel 11 + Sanctum)
+  auth-api:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    container_name: luwi_auth_api
+    restart: unless-stopped
+    ports:
+      - "8000:8000"
+    environment:
+      - APP_ENV=local
+      - APP_DEBUG=true
+      - APP_URL=http://localhost:8000
+      - FRONTEND_URL=http://localhost:3000
+      - DB_CONNECTION=pgsql
+      - DB_HOST=postgres
+      - DB_PORT=5432
+      - DB_DATABASE=luwifinance_db
+      - DB_USERNAME=luwi_user
+      - DB_PASSWORD=luwi_secret_password
+    depends_on:
+      - postgres
+    networks:
+      - luwi_network
+
+  # 3. Banco de Dados Relacional (PostgreSQL 16)
+  postgres:
+    image: postgres:16-alpine
+    container_name: luwi_postgres
+    restart: unless-stopped
+    ports:
+      - "5432:5432"
+    environment:
+      - POSTGRES_DB=luwifinance_db
+      - POSTGRES_USER=luwi_user
+      - POSTGRES_PASSWORD=luwi_secret_password
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    networks:
+      - luwi_network
+
+volumes:
+  postgres_data:
+    driver: local
+
+networks:
+  luwi_network:
+    driver: bridge
