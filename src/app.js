@@ -15,7 +15,10 @@ const STORAGE_KEYS = {
   AUTH_USER: 'luwi_auth_user'
 };
 
-const LARAVEL_API_URL = 'http://localhost:8000/api';
+// Same-origin Laravel Auth API: no Vercel, a Vercel roteia /api/* para o serviço
+// "backend" (ver vercel.json). Não hardcode http://localhost:8000 — em produção
+// o navegador chama o backend pelo mesmo domínio, via rewrites da plataforma.
+const LARAVEL_API_URL = '/api';
 
 const DEFAULT_TRANSACTIONS = [
   { id: '1', name: 'Salário Mensal', amount: 5200.00, type: 'income', category: 'Renda', isRecurring: true, date: '01/10/2026' },

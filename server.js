@@ -7,7 +7,10 @@ const root = resolve(fileURLToPath(new URL(".", import.meta.url)));
 const port = Number(process.env.PORT || 3000);
 const apiKey = process.env.GEMINI_API_KEY;
 const model = process.env.GEMINI_MODEL || "gemini-3.5-flash-lite";
-const allowedOrigin = process.env.ALLOWED_ORIGIN || `http://localhost:${port}`;
+// ALLOWED_ORIGIN (opcional): exige match exato de origin. Sem ele, permite apenas
+// same-origin (Origin host == Host header) — ideal para o deploy na Vercel, onde
+// frontend e /api/* vivem no mesmo domínio. Defina-o só se servir a partir de outra origem.
+const allowedOrigin = process.env.ALLOWED_ORIGIN || null;
 const systemPrompt = `Você é Luwi, uma copiloto de inteligência financeira pessoal acolhedora, objetiva e inteligente. Sua proposta é simplificar as finanças eliminando a complexidade de planilhas e gráficos confusos, conversando em linguagem natural, clara e sem jargões.
 
 Suas diretrizes:
@@ -30,23 +33,29 @@ const MIME = {
   ".ico": "image/x-icon"
 };
 
-function headers(contentType, origin = allowedOrigin) {
-  return { 
-    "Content-Type": contentType, 
-    "Cache-Control": "no-store", 
-    "X-Content-Type-Options": "nosniff", 
-    "X-Frame-Options": "DENY", 
-    "Referrer-Policy": "no-referrer", 
+function headers(contentType) {
+  const base = {
+    "Content-Type": contentType,
+    "Cache-Control": "no-store",
+    "X-Content-Type-Options": "nosniff",
+    "X-Frame-Options": "DENY",
+    "Referrer-Policy": "no-referrer",
     "Service-Worker-Allowed": "/",
-    "Permissions-Policy": "camera=(), microphone=(), geolocation=()", 
-    "Content-Security-Policy": "default-src 'self'; connect-src 'self' http://localhost:8000 https://fonts.googleapis.com https://fonts.gstatic.com; style-src 'self' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data: https:; worker-src 'self'; manifest-src 'self'; base-uri 'none'; frame-ancestors 'none'; form-action 'self'", 
-    "Strict-Transport-Security": process.env.NODE_ENV === "production" ? "max-age=31536000; includeSubDomains" : "max-age=0", 
-    "Access-Control-Allow-Origin": origin 
+    "Permissions-Policy": "camera=(), microphone=(), geolocation=()",
+    "Content-Security-Policy": "default-src 'self'; connect-src 'self' https://fonts.googleapis.com https://fonts.gstatic.com; style-src 'self' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data: https:; worker-src 'self'; manifest-src 'self'; base-uri 'none'; frame-ancestors 'none'; form-action 'self'",
+    "Strict-Transport-Security": process.env.NODE_ENV === "production" ? "max-age=31536000; includeSubDomains" : "max-age=0"
   };
+  if (allowedOrigin) base["Access-Control-Allow-Origin"] = allowedOrigin;
+  return base;
 }
 function send(res, code, body, type = "application/json; charset=utf-8") { res.writeHead(code, headers(type)); res.end(typeof body === "string" ? body : JSON.stringify(body)); }
 function clientKey(req) { return (req.headers["x-forwarded-for"] || req.socket.remoteAddress || "unknown").split(",")[0].trim(); }
-function allowed(req) { return !req.headers.origin || req.headers.origin === allowedOrigin; }
+function allowed(req) {
+  if (!req.headers.origin) return true;
+  if (allowedOrigin) return req.headers.origin === allowedOrigin;
+  // Sem ALLOWED_ORIGIN configurado: permite somente same-origin
+  try { return new URL(req.headers.origin).host === req.headers.host; } catch { return false; }
+}
 function rateLimited(req) { const key = clientKey(req), now = Date.now(), old = buckets.get(key) || []; const fresh = old.filter(t => now - t < 60_000); fresh.push(now); buckets.set(key, fresh); return fresh.length > 20; }
 function readBody(req) { return new Promise((resolveBody, reject) => { let data = "", size = 0; req.on("data", chunk => { size += chunk.length; if (size > 12_000) { reject(new Error("payload too large")); req.destroy(); } else data += chunk; }); req.on("end", () => resolveBody(data)); req.on("error", reject); }); }
 async function chat(req, res) {

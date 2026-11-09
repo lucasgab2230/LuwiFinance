@@ -20,8 +20,9 @@ WORKDIR /var/www/html
 # Copia arquivos de dependência
 COPY composer.json ./
 
-# Instala dependências sem scripts e sem dev para build leve
-RUN composer install --no-dev --no-interaction --prefer-dist --optimize-autoloader || true
+# Instala dependências sem scripts e sem dev para build leve.
+# (Sem "|| true": se o composer install falhar, o build deve falhar — nunca publicar imagem quebrada.)
+RUN composer install --no-dev --no-interaction --prefer-dist --optimize-autoloader
 
 # Copia todo o código-fonte do backend
 COPY . .
@@ -32,4 +33,5 @@ RUN mkdir -p storage/framework/cache storage/framework/sessions storage/framewor
 
 EXPOSE 8000
 
-CMD ["php", "artisan", "serve", "--host=0.0.0.0", "--port=8000"]
+# Respeita $PORT se a plataforma injetar uma, senão usa 8000 (docker-compose local)
+CMD ["sh", "-c", "php artisan serve --host=0.0.0.0 --port=${PORT:-8000}"]
